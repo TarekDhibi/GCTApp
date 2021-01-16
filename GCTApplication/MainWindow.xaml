@@ -1,0 +1,35 @@
+﻿<Window x:Class="GCTApplication.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="GCT | Authentification" Height="350" Width="525" Icon="img/1.png">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="4*"/>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="2*"/>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="1" Margin="10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="2*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="1*"/>
+            </Grid.RowDefinitions>
+            <Label Grid.Column="0" Grid.Row="0" Content="Login :" VerticalAlignment="Center"></Label>
+            <Label Grid.Column="0" Grid.Row="1" Content="Mot de passe :" VerticalAlignment="Center"></Label>
+            <TextBox x:Name="TBLogin" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center"></TextBox>
+            <PasswordBox x:Name="TBMdp" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></PasswordBox>
+        </Grid>
+        <Grid Grid.Row="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="BConnexion" Background="AliceBlue" Content="Connexion" Margin="60,10,60,10" Click="BConnexion_Click" ></Button>
+            <Button x:Name="BQuitter" Background="AntiqueWhite" Content="Quitter" Margin="60,10,60,10" Grid.Column="1" Click="BQuitter_Click" ></Button>
+        </Grid>
+    </Grid>
+</Window>

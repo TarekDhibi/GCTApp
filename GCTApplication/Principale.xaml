@@ -1,0 +1,709 @@
+﻿<Window x:Class="GCTApplication.Principale"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:DV="clr-namespace:System.Windows.Controls.DataVisualization;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:DVC="clr-namespace:System.Windows.Controls.DataVisualization.Charting;assembly=System.Windows.Controls.DataVisualization.Toolkit"
+        xmlns:local="clr-namespace:GCTApplication"
+        xmlns:System="clr-namespace:System;assembly=mscorlib"
+        Title="GCT | Principale" Height="600" Width="800" Icon="img/icone.png">
+    <Grid>
+        <TabControl Background="Transparent" TabStripPlacement="Bottom">
+            <TabControl.Resources>
+                <Style TargetType="TabItem">
+                    <Setter Property="Template">
+                        <Setter.Value>
+                            <ControlTemplate TargetType="TabItem">
+                                <Border Name="Border" BorderThickness="1,1,1,1" BorderBrush="Gainsboro" CornerRadius="0,0,4,4" Margin="0,2">
+                                    <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                </Border>
+                                <ControlTemplate.Triggers>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="False">
+                                        <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                    </Trigger>
+                                </ControlTemplate.Triggers>
+                            </ControlTemplate>
+                        </Setter.Value>
+                    </Setter>
+                </Style>
+            </TabControl.Resources>
+            <TabItem Header="Personels" Background="White" FontSize="16">
+                <TabControl Background="Transparent">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border Name="Border" BorderThickness="1,1,1,1" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Ajouter">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Nom et Prenom :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Rôle :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Login :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Mot de passe :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBNom" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                            <ComboBox x:Name="CBRole" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" SelectedIndex="1">
+                                <ComboBoxItem>Administrateur</ComboBoxItem>
+                                <ComboBoxItem>Gestionnaire</ComboBoxItem>
+                                <ComboBoxItem>Utilisateur</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox x:Name="TBLogin" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <PasswordBox x:Name="TBMdp" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></PasswordBox>
+                            <CheckBox x:Name="AfficherMdp" Content="Afficher mot de passe" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
+                            <TextBox x:Name="TBAfficherMdp" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BAjouter" Padding="5" Content="Enregistrer" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Click="BAjouter_Click" ></Button>
+                            <Button x:Name="BAAnnuler" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AntiqueWhite" Click="BAAnnuler_Click" ></Button>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Liste">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox x:Name="CRechAdmin" SelectedIndex="0" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Transparent">
+                                    <ComboBoxItem>nom</ComboBoxItem>
+                                    <ComboBoxItem>role</ComboBoxItem>
+                                    <ComboBoxItem>login</ComboBoxItem>
+                                </ComboBox>
+                                <TextBox x:Name="FiltreRechAdmin" TextChanged="FiltreRechAdmin_TextChanged" VerticalAlignment="Center" Grid.Column="1"></TextBox>
+                            </Grid>
+                            <DataGrid x:Name="DataGridAdmin" Background="Transparent" Grid.Row="1" MouseUp="DataGrid1_MouseUp" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Binding="{Binding id}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Nom et prenom" Binding="{Binding nom}" Width="2*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Role" Binding="{Binding role}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Login" Binding="{Binding login}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Mot de passe" Binding="{Binding pass}" Width="1*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+                            <Button x:Name="ImprimerListePersonel" Grid.Row="2" VerticalAlignment="Center" Padding="5" Content="Imrimer" HorizontalAlignment="Right" Background="AntiqueWhite" Click="ButtonImpressionListePersonels_Click" ></Button>
+
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem Header="Modifier">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Identifiant :" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Nom et Prenom :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Rôle :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Login :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Mot de passe :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBIdM" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" KeyDown="PreviewTextInput" TextChanged="TBIdM_TextChanged"></TextBox>
+                            <TextBox x:Name="TBNomM" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                            <ComboBox x:Name="CBRoleM" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" SelectedIndex="1">
+                                <ComboBoxItem>Administrateur</ComboBoxItem>
+                                <ComboBoxItem>Gestionnaire</ComboBoxItem>
+                                <ComboBoxItem>Utilisateur</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox x:Name="TBLoginM" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <PasswordBox x:Name="TBMdpM" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></PasswordBox>
+                            <CheckBox x:Name="CBAfficherM" Content="Afficher mot de passe" Checked="CBAfficherM_Checked" Unchecked="CBAfficherM_Checked" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"></CheckBox>
+                            <TextBox x:Name="TBAfficherMdpM" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BAModifierAdmin" Padding="5" Content="Modifier" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Click="BAModifierAdmin_Click" ></Button>
+                            <Button x:Name="BAAnnulerM" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AntiqueWhite" Click="BAAnnulerM_Click" ></Button>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Journal">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox x:Name="CRechAdminJ" SelectedIndex="0" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Transparent">
+                                    <ComboBoxItem>id Personel</ComboBoxItem>
+                                    <ComboBoxItem>Tache</ComboBoxItem>
+                                </ComboBox>
+                                <TextBox x:Name="FiltreRechAdminJ" TextChanged="FiltreRechAdminJ_TextChanged" VerticalAlignment="Center" Grid.Column="1"></TextBox>
+                            </Grid>
+                            <DataGrid x:Name="DataGridJournal" Background="Transparent" Grid.Row="1" MouseUp="DataGrid1_MouseUp" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Binding="{Binding id}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Id personel" Binding="{Binding idP}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Tache" Binding="{Binding tache}" Width="4*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+
+                            </DataGrid>
+                            <Button x:Name="ImprimerJournal" Grid.Row="2" VerticalAlignment="Center" Padding="5" Content="Imrimer" HorizontalAlignment="Right" Background="AntiqueWhite" Click="ImprimerJournal_Click" ></Button>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Supprimer">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Identifiant :" Grid.Column="0" Grid.Row="0" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Nom et Prenom :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Rôle :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Login :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Mot de passe :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBIdAdminS" Grid.Column="1" Grid.Row="0" VerticalAlignment="Center" TextChanged="TBIdAdminS_TextChanged"></TextBox>
+                            <TextBox x:Name="TBNomAdminS" IsEnabled="False" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                            <ComboBox x:Name="CBRoleAdminS" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" SelectedIndex="1">
+                                <ComboBoxItem>Administrateur</ComboBoxItem>
+                                <ComboBoxItem>Gestionnaire</ComboBoxItem>
+                                <ComboBoxItem>Utilisateur</ComboBoxItem>
+                            </ComboBox>
+                            <TextBox x:Name="TBLoginAdminS" IsEnabled="False" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <PasswordBox x:Name="TBMdpAdminS" IsEnabled="False" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></PasswordBox>
+                            <CheckBox x:Name="AfficherMdpS" Content="Afficher mot de passe :" Checked="AfficherMdpS_Checked" Unchecked="AfficherMdpS_Checked" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right" Margin="5"></CheckBox>
+                            <TextBox x:Name="TBAfficherMdpAdminS" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BASupprimerAdminS" Padding="5" Content="Supprimer" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Click="BASupprimerAdminS_Click" ></Button>
+                            <Button x:Name="BAAnnulerAdminS" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AntiqueWhite" Click="BAAnnulerAdminS_Click" ></Button>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Articles" Background="White" FontSize="16">
+                <TabControl Background="Transparent">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border Name="Border" BorderThickness="1,1,1,1" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Ajouter">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Symbole :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Description :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Besoin :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Stock :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSymbole" KeyUp="TBSymbole_KeyUp" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBDesc" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" ></TextBox>
+                            <TextBox x:Name="TBBesoin" TextChanged="TBBesoin_TextChanged" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBStock" TextChanged="TBStock_TextChanged" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Ratio :" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBRatio" TextChanged="TBRatio_TextChanged" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Label Content="SA :" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSA" TextChanged="TBSA_TextChanged" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Mdhilla :" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSMdhilla" TextChanged="TBSMdhilla_TextChanged" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Skhira :" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSSkhira" TextChanged="TBSSkhira_TextChanged" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Designation :" Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBDesignation" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Format :" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBFormat" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Episseur :" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBEpisseur" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BAjouterArticle" Padding="5" Content="Enregistrer" Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Click="BAjouterArticle_Click" ></Button>
+                            <Button x:Name="BAAnnulerArticle" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="12" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="AntiqueWhite" Margin="146,0,146,1" Click="BAAnnulerArticle_Click" ></Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Liste">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox x:Name="CRechArticle" SelectedIndex="0" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Transparent">
+                                    <ComboBoxItem>Symbole</ComboBoxItem>
+                                    <ComboBoxItem>Description</ComboBoxItem>
+                                    <ComboBoxItem>Besoin</ComboBoxItem>
+                                </ComboBox>
+                                <TextBox x:Name="FiltreRechArticle" VerticalAlignment="Center" Grid.Column="1" TextChanged="FiltreRechArticle_TextChanged"></TextBox>
+                            </Grid>
+                            <DataGrid x:Name="DataGridArticle" Grid.Row="1" MouseUp="DataGrid1_MouseUp" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <!--, , , , , , , , , , -->
+                                    <DataGridTextColumn Header="Symbole" Binding="{Binding symbole}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Description" Binding="{Binding description}" Width="2*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Besoin" Binding="{Binding besoin}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Stock" Binding="{Binding stock}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Ratio" Binding="{Binding ratio}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Sa" Binding="{Binding sa}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Smdhilla" Binding="{Binding smdhilla}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Sskhira" Binding="{Binding sskhira}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Designation" Binding="{Binding designation}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Format" Binding="{Binding format}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Episseur" Binding="{Binding episseur}" Width="1*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button x:Name="BtImprimerListeArticle" Grid.Row="2" VerticalAlignment="Center" Padding="5" Content="Imrimer" HorizontalAlignment="Right" Background="AntiqueWhite" Click="BtImprimerListeArticle_Click" ></Button>
+
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem Header="Modifier">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Symbole :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Description :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Besoin :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Stock :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSymboleM" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center" KeyUp="TBSymboleM_KeyUp" TextChanged="TBSymboleM_KeyUp" ></TextBox>
+                            <TextBox x:Name="TBDescM" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" ></TextBox>
+                            <TextBox x:Name="TBBesoinM" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBStockM" Grid.Column="1" KeyUp="TBStockM_KeyUp" Grid.Row="4" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Ratio :" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBRatioM" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Label Content="SA :" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSAM" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Mdhilla :" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSMdhillaM" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Skhira :" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSSkhiraM" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Designation :" Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBDesignationM" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Format :" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBFormatM" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Episseur :" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBEpisseurM" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BAModifierArticle" Click="BAModifierArticle_Click" Padding="5" Content="Modifier" Grid.Column="0" Grid.Row="12" VerticalAlignment="Bottom" HorizontalAlignment="Center" Background="AliceBlue" Margin="144,0,143,1" ></Button>
+                            <Button x:Name="BAAnnulerArticleM" Click="BAAnnulerArticleM_Click" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AntiqueWhite" ></Button>
+
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Journal">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="5*"/>
+                                <RowDefinition Height="1*"/>
+                            </Grid.RowDefinitions>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <ComboBox x:Name="CRechArticlenJ" SelectedIndex="0" VerticalAlignment="Center" HorizontalAlignment="Right" Background="Transparent">
+                                    <ComboBoxItem>id Personel</ComboBoxItem>
+                                    <ComboBoxItem>Symbole</ComboBoxItem>
+                                    <ComboBoxItem>Anné</ComboBoxItem>
+                                    <ComboBoxItem>Moi</ComboBoxItem>
+                                    <ComboBoxItem>Jour</ComboBoxItem>
+                                    <ComboBoxItem>Action</ComboBoxItem>
+                                </ComboBox>
+                                <TextBox x:Name="FiltreRechArticleJ" TextChanged="FiltreRechArticleJ_TextChanged" VerticalAlignment="Center" Grid.Column="1"></TextBox>
+                            </Grid>
+                            <DataGrid x:Name="DataGridArticleJ" Background="Transparent" Grid.Row="1" MouseUp="DataGrid1_MouseUp" AutoGenerateColumns="False" CanUserAddRows="False">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Header="Id" Binding="{Binding id}" Width="1*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Id Personel" Binding="{Binding idAdmin}" Width="4*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Symbole" Binding="{Binding symbole}" Width="4*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Anné" Binding="{Binding anne}" Width="4*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Moi" Binding="{Binding moi}" Width="4*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Jour" Binding="{Binding jour}" Width="4*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Action" Binding="{Binding action}" Width="4*"></DataGridTextColumn>
+                                    <DataGridTextColumn Header="Remarque" Binding="{Binding remarque}" Width="4*"></DataGridTextColumn>
+                                </DataGrid.Columns>
+                            </DataGrid>
+                            <Button x:Name="ImprimerArticle" Grid.Row="2" VerticalAlignment="Center" Padding="5" Content="Imrimer" HorizontalAlignment="Right" Background="AntiqueWhite" Click="ImprimerArticle_Click" ></Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Supprimer">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Symbole :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Description :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Besoin :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Stock :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSymboleS" KeyUp="TBSymboleS_KeyUp" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBDescS" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" ></TextBox>
+                            <TextBox x:Name="TBBesoinS" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBStockS" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Ratio :" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBRatioS" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Label Content="SA :" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSAS" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Mdhilla :" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSMdhillaS" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Skhira :" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSSkhiraS" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Designation :" Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBDesignationS" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Format :" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBFormatS" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Episseur :" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBEpisseurS" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BASupprimerArticleS" Click="BASupprimerArticleS_Click" Padding="5" Content="Supprimer" Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" ></Button>
+                            <Button x:Name="BAAnnulerArticleS" Click="BAAnnulerArticleS_Click" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AntiqueWhite" ></Button>
+
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem Header="Ajouter au stock">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Symbole :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Description :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Besoin :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Stock :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSymboleas" KeyUp="TBSymboleas_KeyUp" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBDescas" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" ></TextBox>
+                            <TextBox x:Name="TBBesoinas" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBStockas" IsEnabled="False" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Ratio :" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBRatioas" KeyUp="TBRatioas_KeyUp" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Label Content="SA :" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSAas" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Mdhilla :" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSMdhillaas" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Skhira :" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSSkhiraas" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Designation :" Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBDesignationas" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Format :" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBFormatas" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Episseur :" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBEpisseuras" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Nouvelle quantité :" Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBNouvelleQuantiteras" KeyUp="TBNouvelleQuantiteras_KeyUp" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BAConfirmerArticleas" Click="BAConfirmerArticleas_Click" Padding="5" Content="Ajouter" Grid.Column="0" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" ></Button>
+                            <Button x:Name="BAAnnulerArticleas" Click="BAAnnulerArticleS_Click" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AntiqueWhite" ></Button>
+                        </Grid>
+
+                    </TabItem>
+                    <TabItem Header="Retirer du stock">
+                        <Grid Margin="0,0,50,0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*"/>
+                                <ColumnDefinition Width="1*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="2*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="1*"/>
+                                <RowDefinition Height="2*"/>
+                            </Grid.RowDefinitions>
+                            <Label Content="Symbole :" Grid.Column="0" Grid.Row="1" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Description :" Grid.Column="0" Grid.Row="2" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Besoin :" Grid.Column="0" Grid.Row="3" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <Label Content="Stock :" Grid.Column="0" Grid.Row="4" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSymbolere" KeyUp="TBSymbolere_KeyUp" Grid.Column="1" Grid.Row="1" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBDescre" Grid.Column="1" Grid.Row="2" VerticalAlignment="Center" ></TextBox>
+                            <TextBox x:Name="TBBesoinre" Grid.Column="1" Grid.Row="3" VerticalAlignment="Center"></TextBox>
+                            <TextBox x:Name="TBStockre" IsEnabled="False" KeyUp="TBStockre_KeyUp" Grid.Column="1" Grid.Row="4" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Ratio :" Grid.Column="0" Grid.Row="5" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBRatiore" Grid.Column="1" Grid.Row="5" VerticalAlignment="Center"></TextBox>
+                            <Label Content="SA :" Grid.Column="0" Grid.Row="6" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSAre" Grid.Column="1" Grid.Row="6" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Mdhilla :" Grid.Column="0" Grid.Row="7" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSMdhillare" Grid.Column="1" Grid.Row="7" VerticalAlignment="Center"></TextBox>
+                            <Label Content="S Skhira :" Grid.Column="0" Grid.Row="8" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBSSkhirare" Grid.Column="1" Grid.Row="8" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Designation :" Grid.Column="0" Grid.Row="9" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBDesignationre" Grid.Column="1" Grid.Row="9" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Format :" Grid.Column="0" Grid.Row="10" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBFormatre" Grid.Column="1" Grid.Row="10" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Episseur :" Grid.Column="0" Grid.Row="11" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBEpisseurre" Grid.Column="1" Grid.Row="11" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Nouvelle quantité :" Grid.Column="0" Grid.Row="12" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBNouvelleQuantiterre" KeyUp="TBNouvelleQuantiterre_KeyUp" Grid.Column="1" Grid.Row="12" VerticalAlignment="Center"></TextBox>
+                            <Label Content="Usage :" Grid.Column="0" Grid.Row="13" VerticalAlignment="Center" HorizontalAlignment="Right"></Label>
+                            <TextBox x:Name="TBUsagere" KeyUp="TBNouvelleQuantiteras_KeyUp" Grid.Column="1" Grid.Row="13" VerticalAlignment="Center"></TextBox>
+                            <Button x:Name="BAConfirmerArticlere" Click="BAConfirmerArticlere_Click" Padding="5" Content="Retirer" Grid.Column="0" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" ></Button>
+                            <Button x:Name="BAAnnulerArticlere" Click="BAAnnulerArticleS_Click" Padding="5" Content="Annuler" Grid.Column="1" Grid.Row="14" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AntiqueWhite" ></Button>
+
+                        </Grid>
+
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+            <TabItem Header="Statistiques" Background="White" FontSize="16">
+                <TabControl Background="Transparent">
+                    <TabControl.Resources>
+                        <Style TargetType="TabItem">
+                            <Setter Property="Template">
+                                <Setter.Value>
+                                    <ControlTemplate TargetType="TabItem">
+                                        <Border Name="Border" BorderThickness="1,1,1,1" BorderBrush="Gainsboro" CornerRadius="4,4,0,0" Margin="2,0">
+                                            <ContentPresenter x:Name="ContentSite"
+                                        VerticalAlignment="Center"
+                                        HorizontalAlignment="Center"
+                                        ContentSource="Header"
+                                        Margin="10,2"/>
+                                        </Border>
+                                        <ControlTemplate.Triggers>
+                                            <Trigger Property="IsSelected" Value="True">
+                                                <Setter TargetName="Border" Property="Background" Value="LightSkyBlue" />
+                                            </Trigger>
+                                            <Trigger Property="IsSelected" Value="False">
+                                                <Setter TargetName="Border" Property="Background" Value="GhostWhite" />
+                                            </Trigger>
+                                        </ControlTemplate.Triggers>
+                                    </ControlTemplate>
+                                </Setter.Value>
+                            </Setter>
+                        </Style>
+                    </TabControl.Resources>
+                    <TabItem Header="Personel">
+                        <Grid>
+                            <Grid.Resources>
+                                <local:ActionPersonel x:Key="PersonelsCollection" />
+                                <local:AreaDataCollection x:Key="AreaDataCollection" />
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="9*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" x:Name="gridStatI">
+                                <DVC:Chart Name="mcChart" Width="Auto" Height="Auto" BorderBrush="Transparent" Background="Transparent" Grid.RowSpan="2">
+                                    <DVC:Chart.Series>
+                                        <DVC:BarSeries Title="Tache" ItemsSource="{StaticResource PersonelsCollection}" 
+                                    IndependentValueBinding="{Binding Path=login}"
+                                    DependentValueBinding="{Binding Path=action}">
+                                        </DVC:BarSeries>
+                                    </DVC:Chart.Series>
+                                </DVC:Chart>
+                           </Grid>
+                            <Button x:Name="ImprimerStatI" Grid.Row="1" VerticalAlignment="Center" Padding="5" Content="Imrimer" HorizontalAlignment="Right" Background="AntiqueWhite" Click="ImprimerStatI_Click" ></Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Stock">
+                        <Grid>
+                            <Grid.Resources>
+                                <local:ActionPersonel x:Key="PersonelsCollection" />
+                                <local:AreaDataCollection x:Key="AreaDataCollection" />
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="9*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0" x:Name="gridStatII">
+                                <DVC:Chart Canvas.Top="80" Canvas.Left="10" Name="mcChartS" 
+                                 Width="Auto" Height="Auto" BorderBrush="Transparent" Background="Transparent">
+                                    <DVC:Chart.Series>
+                                        <DVC:ColumnSeries Title="Stock" 
+    	                                    IndependentValueBinding="{Binding Path=login}"
+    	                                    DependentValueBinding="{Binding Path=action}">
+                                        </DVC:ColumnSeries>
+                                    </DVC:Chart.Series>
+                                </DVC:Chart>
+                            </Grid>
+                            <Button x:Name="ImprimerStatII" Grid.Row="1" VerticalAlignment="Center" Padding="5" Content="Imrimer" HorizontalAlignment="Right" Background="AntiqueWhite" Click="ImprimerStatII_Click" ></Button>
+                        </Grid>
+                    </TabItem>
+                    <TabItem Header="Suivi de stock">
+                        <Grid>
+                            <Grid.Resources>
+                                <local:ActionPersonel x:Key="PersonelsCollection" />
+                                <local:AreaDataCollection x:Key="AreaDataCollection" />
+                            </Grid.Resources>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="9*"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid Grid.Row="0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Content="Symbole" HorizontalAlignment="Right"></Label>
+                                <TextBox x:Name="symboleArticleStat" KeyUp="symboleArticleStat_KeyUp" Grid.Column="1"></TextBox>
+                            </Grid>
+                            <Grid Grid.Row="1" x:Name="gridStatIII">
+                                <DVC:Chart Canvas.Top="80" Canvas.Left="10" Name="mcChartSS" 
+                                 Width="Auto" Height="Auto" BorderBrush="Transparent" Background="Transparent">
+                                    <DVC:Chart.Series>
+                                        <DVC:LineSeries Title="Stock" 
+    	                                    IndependentValueBinding="{Binding Path=login}"
+    	                                    DependentValueBinding="{Binding Path=action}">
+                                        </DVC:LineSeries>
+                                    </DVC:Chart.Series>
+                                </DVC:Chart>
+                            </Grid>
+                            <Button x:Name="ImprimerStatITI" Grid.Row="2" VerticalAlignment="Center" Padding="5" Content="Imrimer" HorizontalAlignment="Right" Background="AntiqueWhite" Click="ImprimerStatITI_Click" ></Button>
+                        </Grid>
+                    </TabItem>
+                </TabControl>
+            </TabItem>
+        </TabControl>
+    </Grid>
+</Window>
